@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "productEntityManagerFactory",
-        basePackages 	 = {"com.db.implementation.repo1"},
+        basePackages 	 = {"com.example.TestOraclePostgres.ProductModule"},
         transactionManagerRef = "productTransactionManager"
 )
 public class DbConfigPostgres {

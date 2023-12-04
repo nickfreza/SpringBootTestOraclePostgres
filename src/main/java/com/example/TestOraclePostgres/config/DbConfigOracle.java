@@ -23,7 +23,7 @@ import java.util.HashMap;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "userEntityManagerFactory",
-        basePackages 	 = {"com.db.implementation.repo3"},
+        basePackages 	 = {"com.example.TestOraclePostgres.UserModule"},
         transactionManagerRef = "userTransactionManager"
 )
 public class DbConfigOracle {
