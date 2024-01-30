@@ -1,6 +1,7 @@
 package com.example.TestOraclePostgres.config;
 
 import java.util.HashMap;
+import java.util.Objects;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -31,18 +32,17 @@ public class DbConfigPostgres {
     @Autowired
     Environment env;
 
-    @Primary
     @Bean(name= "productDataSource")
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setUrl(env.getProperty("product.datasource.url"));
         ds.setUsername(env.getProperty("product.datasource.username"));
         ds.setPassword(env.getProperty("product.datasource.password"));
-        ds.setDriverClassName(env.getProperty("product.datasource.driver-class-name"));
+        ds.setDriverClassName("org.postgresql.Driver");
         return ds;
     }
 
-    @Primary
+
     @Bean(name= "productEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManager() {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
@@ -57,9 +57,9 @@ public class DbConfigPostgres {
         return bean;
     }
 
-    @Primary
-    @Bean("studentTransactionManager")
-    public PlatformTransactionManager transactionManager(@Qualifier("studentEntityManagerFactory") EntityManagerFactory entityManagerFactory ) {
+
+    @Bean("productTransactionManager")
+    public PlatformTransactionManager transactionManager(@Qualifier("productEntityManagerFactory") EntityManagerFactory entityManagerFactory ) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 }

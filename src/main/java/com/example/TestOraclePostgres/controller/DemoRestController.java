@@ -8,10 +8,7 @@ import com.example.TestOraclePostgres.UserModule.repositories.UserRepo;
 import com.example.TestOraclePostgres.ProductModule.entities.ProductEntity;
 import com.example.TestOraclePostgres.ProductModule.repositories.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,5 +47,15 @@ public class DemoRestController {
     @GetMapping("/getAllUsers")
     public List<UserEntity> getAllUsers(){
         return userRepo.findAll();
+    }
+
+    @GetMapping("/countUsersByAge/{age}")
+    public int getCountUserByAge(@PathVariable("age") String age){
+        return userRepo.callGetTotalUserByAge(Integer.parseInt(age));
+    }
+
+    @GetMapping("/copyUserById/{id}")
+    public int doCopyUserById(@PathVariable("id") String id){
+        return userRepo.callProcedureCopyUser(Integer.parseInt(id));
     }
 }
