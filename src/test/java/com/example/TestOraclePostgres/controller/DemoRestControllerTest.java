@@ -1,6 +1,8 @@
 package com.example.TestOraclePostgres.controller;
 
 import com.example.TestOraclePostgres.UserModule.entities.UserEntity;
+import com.example.TestOraclePostgres.UserModule.model.ContactUserRequest;
+import com.example.TestOraclePostgres.UserModule.model.RegisterUserRequest;
 import com.example.TestOraclePostgres.UserModule.repositories.UserRepo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,27 +33,32 @@ class DemoRestControllerTest {
 
     @BeforeEach
     void setUp(){
-        userRepo.deleteAll();
-        UserEntity newUser = new UserEntity();
-        newUser.setName("Bejo");
-        newUser.setAge(25);
-        newUser.setEmail("user@email.com");
-        userRepo.save(newUser);
+//        userRepo.deleteAll();
+//        UserEntity newUser = new UserEntity();
+//        newUser.setName("Bejo");
+//        newUser.setAge(25);
+//        newUser.setEmail("user@email.com");
+//        userRepo.save(newUser);
     }
 
     @Test
     void copyUserById() throws Exception{
-        String id = "1";
+        String id = "34";
+        ContactUserRequest request = new ContactUserRequest();
+        request.setAddress("Jalan Panjang");
+        request.setPhone(8123123);
         mockMvc.perform(
-                get("/copyUserById/"+id)
+                post("/copyUserById/"+id)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
                      )
         .andDo(result -> {
-            String response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<String>() {
-            });
+            String getContent = result.getResponse().getContentAsString();
+//            String response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<String>() {
+//            });
             /// copy row to new table response 1 success, response 0 failed
-            assertNotNull(response);
+            assertNotNull(getContent);
         });
     }
 

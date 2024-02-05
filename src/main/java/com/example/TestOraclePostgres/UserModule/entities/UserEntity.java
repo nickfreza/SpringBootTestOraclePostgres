@@ -12,7 +12,9 @@ import javax.persistence.*;
 @Entity
 @NamedStoredProcedureQuery(name = "UserEntity.PROCEDURE_COPY_USER", procedureName = "PROCEDURE_COPY_USER", parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_id", type = Integer.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "is_success", type = Integer.class) })
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_address", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_phone", type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "is_success", type = String.class) })
 @NamedStoredProcedureQuery(name = "UserEntity.GET_TOTAL_USER_BY_AGE", procedureName = "GET_TOTAL_USER_BY_AGE", parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "P_AGE", type = Integer.class),
         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "COUNT_USER", type = Integer.class) })

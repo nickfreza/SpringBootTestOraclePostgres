@@ -3,6 +3,7 @@ package com.example.TestOraclePostgres.controller;
 
 import com.example.TestOraclePostgres.ProductModule.model.ProductRequest;
 import com.example.TestOraclePostgres.UserModule.entities.UserEntity;
+import com.example.TestOraclePostgres.UserModule.model.ContactUserRequest;
 import com.example.TestOraclePostgres.UserModule.model.RegisterUserRequest;
 import com.example.TestOraclePostgres.UserModule.repositories.UserRepo;
 import com.example.TestOraclePostgres.ProductModule.entities.ProductEntity;
@@ -54,8 +55,8 @@ public class DemoRestController {
         return userRepo.callGetTotalUserByAge(Integer.parseInt(age));
     }
 
-    @GetMapping("/copyUserById/{id}")
-    public int doCopyUserById(@PathVariable("id") String id){
-        return userRepo.callProcedureCopyUser(Integer.parseInt(id));
+    @PostMapping("/copyUserById/{id}")
+    public String doCopyUserById(@PathVariable("id") String id, @RequestBody ContactUserRequest request){
+        return userRepo.callProcedureCopyUser(Integer.parseInt(id), request.getAddress(), request.getPhone());
     }
 }
